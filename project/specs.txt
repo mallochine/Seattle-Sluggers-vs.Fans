@@ -1,0 +1,9 @@
+
+index.php (the first thing that users see at seattlesluggers.net)
+-----------------------------------------------------------------------
+- Introduce the Seattle Sluggers
+
+
+
+instructions.php (the second thing that users see)
+-----------------------------------------------------

@@ -1,0 +1,193 @@
+Section I - literacy in the information age
+Section VV - analyze how technology transform our relationship with the environment
+Section V - analyze how sportsfandom is grown
+Section V seems to be really interesting
+Section DD - comics. I like comics.
+Section CC - the effects of food
+Section X - fasdfasdf wikipedia
+Section T - geeks. actually not so interesting.
+Section II - the 21st century university. what is its role in the 21st century? 
+
+Section V, Section AA, and Section X
+
+seattle sluggers' emails
+------------------------
+ccozianu@gmail.com
+slavam@msn.com
+john.wang1@comcast.net (mikee@something)
+emilanka@chess4life.com
+marcel.milat@ingenix.com
+
+
+
+Steps to begin to activate the online match
+--------------------------------------------------
+- Create `players` table
+- Create `match_players` table
+- Create `tourney_directors` table
+- Create `matches` table
+- Upload the files to seattlesluggers.net
+- Create an index.php to redirect users to the login page
+- On the index.php, have instructions on how to set up an account with the seattle sluggers.
+- Fix all the links on the match_portal
+	- links on the email when the player has registered with the seattle sluggers
+	- the link provided when the match has been successfully launched
+	- the link provided when the player has registered into the match
+	- 
+- Set up a director account for the Seattle Sluggers
+- Email Slava Mikhailuk, Michael Lee, Serper, and Akobian whether they would be interested in playing
+
+
+
+
+Questions
+--------------
+Is it possible to have a common function named IsFormValid for all the forms? It would make things a lot easier
+Is it possible to store images in databases?
+Combine login.php and verify_login.php, just like facebook did?
+
+
+
+
+Possible Ideas for the second iteration
+------------------------------------------
+* in general: improve error handling
+- should have a way to view and edit all match information
+- let director edit his personal information
+- matchid, playerid: need to be randomly generated
+- need to have stronger error handling for configChessMatch.php
+- dispPlayersRSVPS.php: could be SIGNIFICANTLY improved (see notes to the function)
+- at each stage of the match creation, have a header that checks for whether the match is in the right stage
+- allow the director to create restrictions on who can vote on the match
+- configChessBoards.php: need to have better error handling for the player's ids
+- player_index.php, director_index.php: could let the user request a page through the get parameter. (GUI idea)
+- playmatch.php: add a history button to the match
+- could tighten security on the scripts in the player_actions and actions folder
+- ./actions/: always check whether the directorid and matchid match
+
+
+
+Ideas to finish up the first iteration (after ideas are executed: STOP)
+--------------------------------------------------------------------------
+- get a .htaccess thing going
+- could tighten security on the scripts in the player_actions and actions folder (.htaccess)
+- perhaps get rid of the status column in `match_boards` + matchid?
+
+
+
+Finished ideas
+---------------------
+- login.php: enable the player to set up registration
+- playmatch.php: display the most recent move played
+- playmatch.php: allow the director to send a message to the players
+- playmatch.php: display the Top Two most popular moves
+
+
+
+
+Missing Ideas I'm deliberately missing
+----------------------------------------
+- contChessMatch.php: handle pawn promotions
+- LegalMoveGenerator.php: handle en passant
+
+
+Polishing Ideas (second iteration)
+-------------------------------------
+- view_rsvps.php: the current script displays a [no status name exists for blablabla]
+
+
+Possible Improvements
+----------------------
+- the board settings are currently stored in a php file. they could potentially be better stored in an xml file
+- need to randomly generate the playerid, matchid, directorid
+
+
+Possible Bugs
+---------------------
+- when the player logged in and then the director logged in next, the director can still go to player_index
+- director_index: possible security hole because transition to manage_match.php relies on GET parameters
+		actually, I take that back. there DEFINITELY is a security hole
+
+
+Keys
+~~~~~~~~~~
+
+Statuses for `match_players`
+-----------------------------
+200 - not replied yet
+400 - accepted
+404 - declined
+500 - the match has begun, it is now too late to decline // I don't know where this is in my code. oh well
+600 - the player has not submitted a vote
+606 - the player has submitted a vote
+700 - the user is signed up but not as a player in the match
+
+
+Statuses for `match_users`.$matchid
+------------------------------------ 
+600 - the player has not submitted a vote
+606 - the player has submitted a vote
+
+
+Statuses for `players`
+----------------------
+200 - not activated
+400 - active
+404 - deactivated
+
+
+Statuses for `matches`
+----------------------
+1   - the director is setting the number of boards
+2   - the director will be inviting a player to each board
+400 - after all the invitations have been accepted, the director will launch the match
+500 - the match is in progress
+
+
+These lines of code were used in testing the legalmovegenerator
+-----------------------------------------------------------------
+/**
+// now test the queenside castling capability
+$dblarrNewboard[1][0] = 0;
+$dblarrNewboard[2][0] = 0;
+$dblarrNewboard[3][0] = 0;
+$dblarrNewboard[3][1] = 0;
+$dblarrNewboard[4][2] = -2;
+
+// now test the kingside castling capability
+$dblarrNewboard[4][1] = 0;
+$dblarrNewboard[4][3] = 1; // white pawn to e4
+$dblarrNewboard[5][0] = 0;
+$dblarrNewboard[6][0] = 0;
+$dblarrNewboard[0][5] = -3; // black bishop on a6
+$dblarrNewboard[3][2] = 1; // white pawn on d3
+
+$dblarrNewboard[5][1] = 0;
+$dblarrNewboard[5][2] = 1; // white pawn to f3 
+$dblarrNewboard[7][3] = -3; 
+$dblarrNewboard[3][1] = 0;
+$dblarrNewboard[3][2] = 1; // white pawn to d3
+$dblarrNewboard[1][3] = -3;// black bishop on b4
+
+$dblarrNewboard[5][1] = 0;
+$dblarrNewboard[5][2] = 1; // white pawn to f3 
+$dblarrNewboard[2][1] = 0;
+$dblarrNewboard[2][2] = 1; // white pawn to c3
+
+$dblarrNewboard[4][1] = 0;
+$dblarrNewboard[4][2] = 1; // white pawn to e3 
+$dblarrNewboard[3][1] = 0;
+$dblarrNewboard[3][2] = 1; // white pawn to d3
+
+$dblarrNewboard[4][1] = 0;
+$dblarrNewboard[4][3] = 1; // white pawn to e4
+$dblarrNewboard[3][1] = 0;
+$dblarrNewboard[3][3] = 1; // white pawn to d4
+$dblarrNewboard[4][6] = 0;
+$dblarrNewboard[4][4] = -1; // black pawn to e5 
+
+$dblarrNewboard[0][1] = 0;
+//$dblarrNewboard[0][3] = 1; // white pawn to a4
+$dblarrNewboard[1][6] = 0;
+//$dblarrNewboard[1][4] = -1; // black pawn to b5
+**/
